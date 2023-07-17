@@ -11,6 +11,25 @@
   font-weight: normal;
   src: url("../fonts/alagard.woff");
 }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .alert{
   position: fixed!important;
   bottom: 0;
@@ -234,19 +253,19 @@ img.logo{
 }
 .controls .primary{
   background-color: transparent;
-  filter: drop-shadow(0 5px 2px black);
-  color: transparent;
+  filter: drop-shadow(0 5px 0 rgba(255,255,255,.4));
   transform: translateY(-10px);
   box-shadow: none;
-  background-image: url('../assets/woof.png');
+  background-color: white;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   border: none;
   width: auto;
-  height: 100px;
-  margin-left: 1em;
+  height: 70px;
+  margin: auto;
   margin-top: 10px;
+  display: block;
 }
 
 .controls .primary:hover{
@@ -278,7 +297,7 @@ img.logo{
   font-size: 1.2em;
 }
 .poweredBy img{
-  max-width: 150px;
+  max-width: 125px;
   display: block;
   margin: .5em auto;
 }

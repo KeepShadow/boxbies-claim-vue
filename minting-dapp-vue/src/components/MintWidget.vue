@@ -13,7 +13,7 @@
         <!-- <button className="decrease" @click="changeAmount(-1)" :disabled="Web3.loading">-</button>
         <span className="mint-amount">{{mintAmount}}</span>
         <button className="increase" @click="changeAmount(1)" :disabled="Web3.loading">+</button> -->
-        <button className="primary" @click="claim" :disabled="Web3.loading">Mint</button>
+        <button className="primary" @click="claim" :disabled="Web3.loading">Claim</button>
       </div>
     </div>
     <div v-else>
