@@ -1,4 +1,3 @@
-/* eslint-disable */
 import fs from 'fs';
 import * as dotenv from 'dotenv';
 import { HardhatUserConfig, task } from 'hardhat/config';
@@ -84,7 +83,6 @@ task('rename-contract', 'Renames the smart contract replacing all occurrences in
 
   // Replace names in source files
   replaceInFile(__dirname + '/../minting-dapp/src/scripts/lib/NftContractType.ts', CollectionConfig.contractName, taskArgs.newName);
-  replaceInFile(__dirname + '/../minting-dapp-vue/src/scripts/lib/NftContractType.ts', CollectionConfig.contractName, taskArgs.newName);
   replaceInFile(__dirname + '/config/CollectionConfig.ts', CollectionConfig.contractName, taskArgs.newName);
   replaceInFile(__dirname + '/lib/NftContractProvider.ts', CollectionConfig.contractName, taskArgs.newName);
   replaceInFile(oldContractFile, CollectionConfig.contractName, taskArgs.newName);
@@ -104,7 +102,7 @@ task('rename-contract', 'Renames the smart contract replacing all occurrences in
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: '0.8.13',
+    version: '0.8.9',
     settings: {
       optimizer: {
         enabled: true,
@@ -127,8 +125,9 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       // Ethereum
-      rinkeby: process.env.BLOCK_EXPLORER_API_KEY,
+      goerli: process.env.BLOCK_EXPLORER_API_KEY,
       mainnet: process.env.BLOCK_EXPLORER_API_KEY,
+      rinkeby: process.env.BLOCK_EXPLORER_API_KEY,
 
       // Polygon
       polygon: process.env.BLOCK_EXPLORER_API_KEY,

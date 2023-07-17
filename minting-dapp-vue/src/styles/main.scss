@@ -29,9 +29,9 @@ body{
   font-family: 'Montserrat', sans-serif;
   width: 100%;
   height: 100vh;
-  background-image:url('../assets/Home-09.png'),url('../assets/Home-04.png'), url('../assets/Home-03.png'), url('../assets/bg.jpg');
-  background-position:right -5vw bottom -5vh, left -45vw bottom -5vh, right 5vw top 4vh, center;
-  background-size:auto 20vh, auto 80vh, auto 40vh, cover;
+  background-image: url('../assets/bg.jpg');
+  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 .mainCont{
@@ -50,6 +50,8 @@ body{
   bottom: 0;
   right: 0;
   margin-right: 10vw;
+  border-radius: 2em;
+  overflow: hidden;
   background-image: url(../assets/Home-02.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -64,7 +66,7 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(37,37,37,.85);
+  background-color: rgba(99, 42, 94, 0.85);
   top: 0;
   bottom: 0;
   left: 0;
@@ -78,12 +80,12 @@ main .container:before{
   content: "";
   position: absolute;
   margin-top: -10%;
+  border: 2em;
   top: 0;
   left: 0;
   width: 1140px;
-  max-width: 80%;
   padding-top: 18%;
-  background-image: url(../assets/logo_dalmatians.png);
+  background-image: url(../assets/boxbiesLogo.avif);
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 0;
@@ -170,9 +172,10 @@ main .container:before{
 }
 .controls .primary{
   background-color: transparent;
+  filter: drop-shadow(0 5px 2px black);
   color: transparent;
+  transform: translateY(-10px);
   box-shadow: none;
-  transform: translate(0);
   background-image: url('../assets/woof.png');
   background-size: contain;
   background-position: center;
@@ -181,7 +184,14 @@ main .container:before{
   width: auto;
   height: 100px;
   margin-left: 1em;
+  margin-top: 10px;
 }
+
+.controls .primary:hover{
+  transform: translateY(0);
+  filter: drop-shadow(0 2px 0 black);
+}
+
 .price{
   color: white;
 }
@@ -227,8 +237,8 @@ main .container:before{
     padding-top: 35vh;
   }
   body{
-    background-position:right -5vw bottom -5vh,left -5vw bottom -5vh,right 5vw top 15vh, center;
-    background-size: auto 20vh, auto 80vh, auto 40vh, cover;
+    background-position: center;
+    background-size: cover;
   }
   .links ul li a{
     font-size: 1.2em;

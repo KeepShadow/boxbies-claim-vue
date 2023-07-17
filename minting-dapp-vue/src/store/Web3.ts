@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/html'
 import { configureChains, createConfig, getContract, prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core'
-import { polygon } from '@wagmi/core/chains'
+import { polygonMumbai } from '@wagmi/core/chains'
 import { publicProvider } from '@wagmi/core/providers/public'
 import { toast } from 'vue3-toastify'
 
@@ -13,7 +13,7 @@ import Whitelist from '../scripts/lib/Whitelist'
 
 // eslint-disable-next-line
 // const ContractAbi = require(`../../../smart-contract/artifacts/contracts/${CollectionConfig.contractName}.sol/${CollectionConfig.contractName}.json`).abi
-import { dalmatiansABI, iBoxbiesABI } from '../generated'
+import { holderRoyaltiesClaimABI } from '../generated'
 
 interface Network {
   name: string,
@@ -26,20 +26,12 @@ interface State {
   userAddress: `0x${string}`|null|undefined;
   network: Network|null;
   networkConfig: NetworkConfigInterface;
-  totalSupply: number;
-  maxSupply: number;
-  maxMintAmountPerTx: number;
-  tokenPrice: bigint;
+  feePrice: bigint;
+  walletBalance: bigint;
   isPaused: boolean;
   loading: boolean;
-  isWhitelistMintEnabled: boolean;
   isUserInWhitelist: boolean;
-  merkleProofManualAddressStatus: boolean|null;
   errorMessage: string|JSX.Element|null;
-  // BOXIE
-  boxieContract: any
-  boxieOwned: number,
-  isWhitelistMint2Enabled: boolean
 }
 
 const defaultState: State = {
@@ -47,21 +39,13 @@ const defaultState: State = {
   initDone: false,
   userAddress: null,
   network: null,
+  feePrice: BigInt(0),
+  walletBalance: BigInt(0),
   networkConfig: CollectionConfig.mainnet,
-  totalSupply: 0,
-  maxSupply: 0,
-  maxMintAmountPerTx: 0,
-  tokenPrice: BigInt(0),
   isPaused: true,
   loading: false,
-  isWhitelistMintEnabled: false,
   isUserInWhitelist: false,
-  merkleProofManualAddressStatus: null,
-  errorMessage: null,
-  // BOXIE
-  boxieContract: null,
-  boxieOwned: 0,
-  isWhitelistMint2Enabled: false
+  errorMessage: null
 }
 
 // const chains = [polygon]
@@ -69,7 +53,7 @@ const projectId = '665d687852032cfc7d1c167792f3c74b'
 
 // const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [polygon],
+  [polygonMumbai],
   [publicProvider()]
 )
 
@@ -85,7 +69,7 @@ const web3modal = new Web3Modal({ projectId }, ethereumClient)
 
 const contractConf = {
   address: CollectionConfig.contractAddress as `0x${string}`,
-  abi: dalmatiansABI
+  abi: holderRoyaltiesClaimABI
 }
 
 export const useWeb3 = defineStore('Web3', {
@@ -100,22 +84,12 @@ export const useWeb3 = defineStore('Web3', {
         walletClient: ethereumClient
       })
 
-      this.boxieContract = getContract({
-        address: CollectionConfig.boxbiesContract as `0x${string}`,
-        abi: iBoxbiesABI,
-        chainId: polygon.id
-      })
-
       try {
         this.$patch({
-          maxSupply: Number(await this.contract.read.maxSupply([])),
-          totalSupply: Number(await this.contract.read.totalSupply([])),
-          maxMintAmountPerTx: Number(await this.contract.read.maxMintAmountPerTx([])),
-          tokenPrice: await this.contract.read.cost([]),
+          feePrice: await this.contract.read.fee([]),
           isPaused: await this.contract.read.paused([]),
-          isWhitelistMintEnabled: await this.contract.read.whitelistMintEnabled([]),
-          isWhitelistMint2Enabled: await this.contract.read.whitelistMint2Enabled([]),
-          isUserInWhitelist: true // Whitelist.contains(this.userAddress ?? '') DISABLED WHITELIST CHECK
+          isUserInWhitelist: await this.contract.read.walletBalance([this.userAddress]) > BigInt(0) // Whitelist.contains(this.userAddress ?? '') DISABLED WHITELIST CHECK
+
         })
       } catch (e) {}
 
@@ -126,7 +100,7 @@ export const useWeb3 = defineStore('Web3', {
         // console.log('ACCOUNT EVENT', isConnected, address)
         if (isConnected) {
           this.userAddress = address
-          this.boxieOwned = (await this.boxieContract.read.tokensByOwner([this.userAddress])).length
+          this.walletBalance = await this.contract.read.walletBalance([this.userAddress]) /* CHECKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK */
         } else {
           this.userAddress = null
         }
@@ -197,7 +171,7 @@ export const useWeb3 = defineStore('Web3', {
     async connectWallet () {
       await web3modal.openModal()
     },
-    copyMerkleProofToClipboard (merkleProofManualAddress: string): void {
+    /* copyMerkleProofToClipboard (merkleProofManualAddress: string): void {
       const merkleProof = Whitelist.getRawProofForAddress(merkleProofManualAddress)
 
       if (merkleProof.length < 1) {
@@ -207,7 +181,7 @@ export const useWeb3 = defineStore('Web3', {
 
       navigator.clipboard.writeText(merkleProof)
       this.merkleProofManualAddressStatus = true
-    },
+    }, */
     async handleTransaction (request: any) {
       const { hash } = await writeContract(request)
 
@@ -229,7 +203,7 @@ export const useWeb3 = defineStore('Web3', {
         position: 'bottom-center'
       })
     },
-    async mintTokens (amount: number): Promise<void> {
+    /* async mintTokens (amount: number): Promise<void> {
       try {
         this.loading = true
         const value = this.tokenPrice * BigInt(amount)
@@ -247,15 +221,15 @@ export const useWeb3 = defineStore('Web3', {
         this.setError(e)
         this.loading = false
       }
-    },
-    async whitelistMintTokens (amount: number): Promise<void> {
+    }, */
+    async claim (): Promise<void> {
       try {
         this.loading = true
-        const value = this.tokenPrice * BigInt(amount)
+        const value = this.feePrice
         const { request } = await prepareWriteContract({
           ...contractConf,
-          functionName: 'whitelistMint',
-          args: [BigInt(amount)],
+          functionName: 'claim',
+          args: undefined,
           value
         })
 
@@ -266,7 +240,7 @@ export const useWeb3 = defineStore('Web3', {
         this.setError(e)
         this.loading = false
       }
-    },
+    }/* ,
     async whitelistMint2Tokens (amount: number): Promise<void> {
       try {
         this.loading = true
@@ -285,7 +259,7 @@ export const useWeb3 = defineStore('Web3', {
         this.setError(e)
         this.loading = false
       }
-    }
+    } */
   },
   getters: {
     getUserAddress (): `0x${string}`|null|undefined {
@@ -297,23 +271,23 @@ export const useWeb3 = defineStore('Web3', {
     isContractReady (): boolean {
       return this.contract !== undefined && this.initDone
     },
-    isSoldOut (): boolean {
+    /* isSoldOut (): boolean {
       return this.maxSupply !== 0 && this.totalSupply >= this.maxSupply
-    },
+    }, */
     isNotMainnet (): boolean {
       return this.network !== null && this.network.chainId !== CollectionConfig.mainnet.chainId
     },
     generateContractUrl (): string {
       return this.networkConfig.blockExplorer.generateContractUrl(CollectionConfig.contractAddress!)
     },
-    generateMarketplaceUrl (): string {
+    /* generateMarketplaceUrl (): string {
       return CollectionConfig.marketplaceConfig.generateCollectionUrl(CollectionConfig.marketplaceIdentifier, !this.isNotMainnet)
-    },
+    }, */
     generateTransactionUrl (state): (arg0: any) => string {
       return (transactionHash: any) => state.networkConfig.blockExplorer.generateTransactionUrl(transactionHash)
-    },
+    }/* ,
     marketPlaceName (): string {
       return CollectionConfig.marketplaceConfig.name
-    }
+    } */
   }
 })

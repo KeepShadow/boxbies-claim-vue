@@ -30,10 +30,9 @@
 
         <template v-if="Web3.isWalletConnected && Web3.isContractReady">
           <collection-status />
-          <mint-widget v-if="!Web3.isSoldOut"/>
+          <mint-widget v-if="true"/>  <!-- !Web3.isSoldOut -->
           <div v-else>
-            <h2>Dalmatians have been <strong>sold out</strong>! <span class="emoji">🥳</span></h2>
-            You can buy from our beloved holders on <a :href="Web3.generateMarketplaceUrl" target="_blank">{{Web3.marketPlaceName}}</a>.
+            <h2>Claim have been <strong>ended for now</strong>! <span class="emoji">🥳</span></h2>
           </div>
         </template>
 
