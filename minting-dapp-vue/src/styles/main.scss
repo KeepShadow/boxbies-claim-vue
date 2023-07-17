@@ -50,8 +50,6 @@ body{
   bottom: 0;
   right: 0;
   margin-right: 10vw;
-  border-radius: 2em;
-  overflow: hidden;
   background-image: url(../assets/Home-02.png);
   background-size: contain;
   background-repeat: no-repeat;
@@ -72,6 +70,7 @@ body{
   left: 0;
   right: 0;
   margin: auto;
+  margin-top: 13%;
   min-height: 30vh;
   border-radius: 2em;
   padding: 3em;
@@ -79,12 +78,14 @@ body{
 main .container:before{
   content: "";
   position: absolute;
-  margin-top: -10%;
+  margin-top: -24%;
+  overflow: hidden;
+  border-radius: 2em;
   border: 2em;
   top: 0;
   left: 0;
-  width: 1140px;
-  padding-top: 18%;
+  width: 170px;
+  padding-top: 22.2%;
   background-image: url(../assets/boxbiesLogo.avif);
   background-size: contain;
   background-repeat: no-repeat;
