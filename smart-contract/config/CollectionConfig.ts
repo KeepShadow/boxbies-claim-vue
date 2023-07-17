@@ -8,7 +8,7 @@ const CollectionConfig: CollectionConfigInterface = {
   // yarn rename-contract NEW_CONTRACT_NAME
   // Please DO NOT change it manually!
   contractName: 'HolderRoyaltiesClaim',
-  contractAddress: '0x9c297EEb0615e8c9bA28e10B122aFCF785Bdd7e0',
+  contractAddress: '0x062cA495408245d78aDbA29CFc2d88d8Af2ba8Ae',
 };
 
 export default CollectionConfig;

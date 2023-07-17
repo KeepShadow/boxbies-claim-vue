@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/html'
 import { configureChains, createConfig, getContract, prepareWriteContract, writeContract, waitForTransaction } from '@wagmi/core'
-import { polygonMumbai } from '@wagmi/core/chains'
+import { polygon } from '@wagmi/core/chains'
 import { publicProvider } from '@wagmi/core/providers/public'
 import { toast } from 'vue3-toastify'
 
@@ -53,7 +53,7 @@ const projectId = '665d687852032cfc7d1c167792f3c74b'
 
 // const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [polygonMumbai],
+  [polygon],
   [publicProvider()]
 )
 

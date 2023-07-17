@@ -10,7 +10,7 @@ contract HolderRoyaltiesClaim is Ownable, ReentrancyGuard {
     mapping(address => uint) public walletBalance;
     address[] public claimed;
 
-    bool public paused;
+    bool public paused = true;
 
     uint public fee = 1 ether;
 
