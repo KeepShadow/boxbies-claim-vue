@@ -1,8 +1,8 @@
 <template>
-    <div class="countDown" v-if="displayCountDown">
-        <h2 class="text-animation" v-if="isLive">Public Drop is now LIVE</h2>
-        <div v-else>
-            <h2 class="cdTitle">Public Drop starts in:</h2>
+    <div class="countDown" ><!-- v-if="displayCountDown" -->
+        <!-- <h2 class="text-animation" v-if="isLive">Is now possible to claim</h2> -->
+        <div><!-- v-else -->
+            <h2 class="cdTitle">Next claim in:</h2>
             <section>
                 <section class="timer">
                     <div>
@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     startTimer () {
-      const countdownDate = new Date('June 31, 2023 16:00:00').getTime()
+      const countdownDate = new Date('July 17, 2023 15:00:00').getTime()
       const interval = setInterval(() => {
         const now = new Date()
         const nowUTC = new Date(
@@ -99,19 +99,20 @@ export default {
         align-items: center;
     }
     .cdTitle{
-        font-family: "Headers";
+        font-family: "Press Start 2P";
         color: white;
         text-align: center;
+        font-size: 1.2em;
     }
     .timer div:first-child {
-        border: 1px solid white;
+        border: 10px solid white;
         border-radius: 3px;
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         text-align: center;
         margin-bottom: 1em;
         padding: 1em 1em 0 1em;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Press Start 2P', serif;
         font-size: 1.2em;
         color: white;
     }

@@ -10,7 +10,6 @@ import 'vue3-toastify/dist/index.css'
 
 export default class HomeView extends Vue {
   Web3 = useWeb3()
-
   mounted () {
     this.Web3.init()
   }
