@@ -1,22 +1,23 @@
 <template>
-  <div id="minting-dapp">
+  <div id="minting-dapp" :class="{ dark: isActive }">
     <div class="links">
       <ul>
         <li>
           <a href="https://discord.gg/boxbies" target="_blank">Discord</a>
         </li>
         <li>
-          <a href="https://twitter.com/dalmatiansnft" target="_blank">twitter</a>
+          <a href="https://twitter.com/boxbies" target="_blank">twitter</a>
         </li>
         <li>
-          <a href="https://opensea.io/collection/dalmatiansofficial" target="_blank">Opensea</a>
-        </li>
-        <li>
-          <a href="https://twitter.com/AtlanCoelho" target="_blank">artist</a>
+          <a href="https://opensea.io/collection/boxbiesnft" target="_blank">Opensea</a>
         </li>
       </ul>
     </div>
+    <div class="darkTheme">
+      <button @click="isActive = !isActive"></button>
+    </div>
     <div class="mainCont">
+      <img class="logo" src="../assets/boxbiesLogo.jpg" alt="Boxbies Logo">
       <div class="container">
         <count-down-timer />
         <div v-if="Web3.isNotMainnet" class="alert alert-warning" role="alert">
@@ -42,36 +43,11 @@
 
         <div v-else-if="!Web3.isWalletConnected" class="no-wallet">
           <button class="primary" @click="Web3.connectWallet">Connect Wallet</button>
-
-          <!-- <div class="use-block-explorer">
-            Hey, looking for a <strong>super-safe experience</strong>? <span class="emoji">😃</span><br />
-            You can interact with the smart-contract <strong>directly</strong> through <a :href="Web3.generateContractUrl" target="_blank">{{Web3.networkConfig.blockExplorer.name}}</a>, without even connecting your wallet to this DAPP! <span class="emoji">🚀</span><br />
-            <br />
-            Keep safe! <span class="emoji">❤️</span>
-          </div> -->
-
-          <!-- <div v-if="!Web3.isWalletConnected || Web3.isWhitelistMintEnabled" class="merkle-proof-manual-address">
-            <h2>Whitelist Proof</h2>
-            <p>
-              Anyone can generate the proof using any public address in the list, but <strong>only the owner of that address</strong> will be able to make a successful transaction by using it.
-            </p>
-
-            <div v-if="Web3.merkleProofManualAddressStatus === true" class="feedback-message">
-              <strong>Congratulations!</strong> <span class="emoji">🎉</span><br />
-              Your Merkle Proof <strong>has been copied to the clipboard</strong>. You can paste it into <a :href="Web3.generateContractUrl" target="_blank">{{Web3.networkConfig.blockExplorer.name}}</a> to claim your tokens.
-            </div>
-            <div v-else-if="Web3.merkleProofManualAddressStatus === false" class="feedback-message">
-              The given address is not in the whitelist, please double-check.
-            </div>
-
-            <label htmlFor="merkle-proof-manual-address">Public address:</label>
-            <input id="merkle-proof-manual-address" type="text" placeholder="0x000..." v-model="merkleProofManualAddress" />
-            <button @click="merkleProofManualAddress && Web3.copyMerkleProofToClipboard(merkleProofManualAddress)">Generate and copy to clipboard</button>
-          </div> -->
         </div>
       </div>
-      <div>
-        <div class="partners"></div>
+      <div class="poweredBy">
+        powered by:
+        <a href="https://boxbies.io" target="_blank"><img src="../assets/boxbiesLogo_negative.jpg" alt="Boxbies logo"></a>
       </div>
     </div>
 
@@ -85,6 +61,7 @@ import MintWidget from '@/components/MintWidget.vue'
 import CountDownTimer from '@/components/CountDownTimer.vue'
 import { useWeb3 } from '@/store/Web3'
 
+const isActive = ref(false)
 const Web3 = useWeb3()
 const merkleProofManualAddress = ref('')
 watch(() => Web3.userAddress, (userAddress) => {

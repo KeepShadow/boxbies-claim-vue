@@ -4,11 +4,32 @@
 
 @import './components/general.scss';
 @import './components/minting-dapp.scss';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @font-face {
-  font-family: "Headers";
-  src: url('../fonts/broadway.woff');
+  font-family: 'Pixel Script Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/alagard.woff");
 }
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 .alert{
   position: fixed!important;
   bottom: 0;
@@ -20,41 +41,86 @@
   background-color: white!important;
   color: black!important;
   border-color: white!important;
-  font-family: "Headers";
+  font-family: "Press Start 2P";
   font-size: 1.2em;
 }
 body{
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Pixel Script Regular', serif;
   width: 100%;
-  height: 100vh;
-  background-image: url('../assets/bg.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: white!important;
 }
+#minting-dapp.dark{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  filter: invert(100%);
+  min-height: 100vh;
+}
+.darkTheme{
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 0;
+  margin-top: 0;
+  display: block;
+  z-index: 10;
+}
+.darkTheme button{
+  position: relative;
+  border-radius: 0;
+  display: block;
+  position: relative;
+  width: 33px;
+  height: 33px;
+  background-color: black;
+  padding: 0;
+}
+.darkTheme button::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(../assets/dark.png);
+  background-size: contain;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+}
+.darkTheme button:hover{
+  background-color: black;
+}
+.dark .darkTheme button::after{
+  background-image: url(../assets/bright.png);
+}
+
 .mainCont{
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Montserrat', sans-serif;
+  display: block;
+  font-family: 'Pixel Script Regular', serif;
 }
 .mainCont:after{
   content: "";
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
-  margin-right: 10vw;
-  background-image: url(../assets/Home-02.png);
+  background-image: url(../assets/nftboxbies.gif);
   background-size: contain;
   background-repeat: no-repeat;
   width: 0;
   padding-top: 0;
+  margin-right: 0;
+}
+img.logo{
+  width: 150px;
+  margin-bottom: 40px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 80px;
 }
 .mainCont .container{
   position: relative;
@@ -64,18 +130,17 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(99, 42, 94, 0.85);
+  background-color:black;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-  margin-top: 13%;
   min-height: 30vh;
-  border-radius: 2em;
   padding: 3em;
+  z-index: 1;
 }
-main .container:before{
+/* main .container:before{
   content: "";
   position: absolute;
   margin-top: -24%;
@@ -84,7 +149,7 @@ main .container:before{
   border: 2em;
   top: 0;
   left: 0;
-  width: 170px;
+  width: 100px;
   padding-top: 22.2%;
   background-image: url(../assets/boxbiesLogo.avif);
   background-size: contain;
@@ -93,38 +158,43 @@ main .container:before{
   margin-left: auto;
   margin-right: auto;
   right: 0;
-  }
-.links ul{
-  display: flex;
+} */
+.links{
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
+}
+.links ul{
+  display: flex;
   align-items: center;
   justify-content: center;
   padding-left: 0;
+  z-index: 1;
+  background-color: white;
 }
 .links ul li a{
-  font-family: "Headers";
-  font-size: 1em;
+  font-family: "Press Start 2P";
+  font-size: .85em;
   display: block;
   padding-left: .5em;
   padding-right: .5em;
   text-transform: uppercase;
   text-decoration: none;
-  color: white;
+  color: black;
   padding-top: 1em;
 }
 .links ul li a:hover{
-  color: white;
+  color: black;
 }
 .primary{
-  background-color: #35C586;
-  border: 5px solid black;
-  border-radius: .5em;
-  transform: translateX(-10px) translateY(-10px);
-  box-shadow: 10px 10px 0 0 black;
-  font-size: 2em;
+  font-family: "Press Start 2P";
+  background-color: white;
+  border: 0px solid black;
+  border-radius: 0;
+  transform: translateY(-10px);
+  box-shadow: 0 10px 0 0 rgba(255,255,255, .7);
+  font-size: 1.2em;
   text-transform: uppercase;
   font-weight: 700;
   line-height: 1em;
@@ -139,6 +209,8 @@ main .container:before{
 #minting-dapp .collection-status{
   background-color: transparent;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .mainCont .container{
   color: white;
@@ -146,12 +218,18 @@ main .container:before{
 #minting-dapp .collection-status > * .label, #minting-dapp .collection-status .user-address .address{
   color: white;
 }
+#minting-dapp .collection-status .user-address .address{
+  text-transform: lowercase;
+}
+.user-address .label{
+  font-family: "Press Start 2P";
+}
 .user-address{
   display: flex;
   flex-direction: column;
 }
-.user-address .address{
-  font-size: .7em;
+.user-address .address{ 
+  font-size: .85em;
 }
 .supply{
   color: white;
@@ -167,25 +245,27 @@ main .container:before{
   font-size: 2em;
   display: flex;
   flex-direction: column;
+  margin-top: .5em;
 }
 .current-sale .label{
+  font-family: "Press Start 2P";
   font-size: .5em;
 }
 .controls .primary{
   background-color: transparent;
-  filter: drop-shadow(0 5px 2px black);
-  color: transparent;
+  filter: drop-shadow(0 5px 0 rgba(255,255,255,.4));
   transform: translateY(-10px);
   box-shadow: none;
-  background-image: url('../assets/woof.png');
+  background-color: white;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   border: none;
   width: auto;
-  height: 100px;
-  margin-left: 1em;
+  height: 70px;
+  margin: auto;
   margin-top: 10px;
+  display: block;
 }
 
 .controls .primary:hover{
@@ -204,23 +284,39 @@ main .container:before{
   vertical-align: middle;
 }
 .cannot-mint{
-  color:white
+  text-align: center;
+  color:white;
+  font-size: 1.2em;
+}
+.poweredBy{
+  display: block;
+  margin: auto;
+  text-align: center;
+  max-width: 200px;
+  margin-top: 1em;
+  font-size: 1.2em;
+}
+.poweredBy img{
+  max-width: 125px;
+  display: block;
+  margin: .5em auto;
 }
 .partners{
   position: relative;
-  width: 350px;
-  height: 150px;
-  background-image: url('../assets/Home-05.png');
+  background-color: black;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
 }
 .partners::after{
   content: "";
   position: absolute;
-  width: 250px;
-  height: 150px;
-  background-image: url('../assets/Home-06.png');
+  height: 100px;
+  background-image: url('../assets/boxbiesLogo_negative.jpg');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -229,17 +325,19 @@ main .container:before{
   right: 0;
   margin: auto;
 }
+.partners:hover::after{
+  filter: invert(1);
+}
 @media (min-width:768px){
   .links ul li a{
     font-size: 1.5em;
   }
-  .mainCont:after{
-    width: 450px;
-    padding-top: 35vh;
+  .mainCont{
+    padding-top: 0;
   }
-  body{
-    background-position: center;
-    background-size: cover;
+  .mainCont:after{
+    width: 300px;
+    padding-top: 300px;
   }
   .links ul li a{
     font-size: 1.2em;
@@ -249,16 +347,20 @@ main .container:before{
   .user-address .address{
     font-size: 1em;
   }
+  .darkTheme{
+    margin-right: 1em;
+    margin-top: 1em;
+  }
 }
 @media (min-width:1024px){
   .mainCont:after{
-    width: 450px;
-    padding-top: 45vh;
+    width: 350px;
+    padding-top: 350px;
   }
 }
 @media(min-width: 1400px){
   .mainCont:after{
     width: 450px;
-    padding-top: 48vh;
+    padding-top: 450px;
   }
 }
