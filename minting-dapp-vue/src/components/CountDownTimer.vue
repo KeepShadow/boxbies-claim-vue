@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     startTimer () {
-      const countdownDate = new Date('July 24, 2023 17:00:00').getTime()
+      const countdownDate = new Date('July 31, 2023 17:00:00').getTime()
       const interval = setInterval(() => {
         const now = new Date()
         const nowUTC = new Date(
