@@ -19,7 +19,9 @@
     <div class="mainCont">
       <img class="logo" src="../assets/boxbiesLogo.jpg" alt="Boxbies Logo">
       <div class="container">
-        <count-down-timer />
+        <div class="countDown" >
+          <h2 class="cdTitle">Claim is updated every Monday</h2>
+        </div>
         <div v-if="Web3.isNotMainnet" class="alert alert-warning" role="alert">
           You are not connected to the main network. <span class="small">Current network: <strong>{{Web3.network?.name}}</strong></span>
         </div>
